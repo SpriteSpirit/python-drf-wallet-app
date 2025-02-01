@@ -1,0 +1,281 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-latest.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <changeSet author="Angelina (generated)" id="1738430694093-1">
+        <createTable tableName="auth_permission">
+            <column autoIncrement="true" name="id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="auth_permission_pkey"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="content_type_id" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="codename" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Angelina (generated)" id="1738430694093-2">
+        <createTable tableName="auth_group_permissions">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="auth_group_permissions_pkey"/>
+            </column>
+            <column name="group_id" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="permission_id" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Angelina (generated)" id="1738430694093-3">
+        <createTable tableName="auth_group">
+            <column autoIncrement="true" name="id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="auth_group_pkey"/>
+            </column>
+            <column name="name" type="VARCHAR(150)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Angelina (generated)" id="1738430694093-4">
+        <createTable tableName="users_user">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="users_user_pkey"/>
+            </column>
+            <column name="password" type="VARCHAR(128)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_login" type="TIMESTAMP WITH TIME ZONE"/>
+            <column name="is_superuser" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_staff" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_active" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date_joined" type="TIMESTAMP WITH TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" type="VARCHAR(254)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="first_name" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_name" type="VARCHAR(100)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Angelina (generated)" id="1738430694093-5">
+        <createTable tableName="users_user_groups">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="users_user_groups_pkey"/>
+            </column>
+            <column name="user_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="group_id" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Angelina (generated)" id="1738430694093-6">
+        <createTable tableName="users_user_user_permissions">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="users_user_user_permissions_pkey"/>
+            </column>
+            <column name="user_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="permission_id" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Angelina (generated)" id="1738430694093-7">
+        <createTable tableName="django_admin_log">
+            <column autoIncrement="true" name="id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="django_admin_log_pkey"/>
+            </column>
+            <column name="action_time" type="TIMESTAMP WITH TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="object_id" type="TEXT"/>
+            <column name="object_repr" type="VARCHAR(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="action_flag" type="SMALLINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="change_message" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="content_type_id" type="INTEGER"/>
+            <column name="user_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Angelina (generated)" id="1738430694093-8">
+        <createTable tableName="django_session">
+            <column name="session_key" type="VARCHAR(40)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="django_session_pkey"/>
+            </column>
+            <column name="session_data" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="expire_date" type="TIMESTAMP WITH TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Angelina (generated)" id="1738430694093-9">
+        <createTable tableName="django_content_type">
+            <column autoIncrement="true" name="id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="django_content_type_pkey"/>
+            </column>
+            <column name="app_label" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="model" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Angelina (generated)" id="1738430694093-10">
+        <createTable tableName="wallet_wallet">
+            <column name="balance" type="numeric(10, 2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="wallet_id" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="wallet_wallet_pkey"/>
+            </column>
+            <column name="user_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Angelina (generated)" id="1738430694093-11">
+        <createIndex indexName="auth_permission_content_type_id_2f476e4b" tableName="auth_permission">
+            <column name="content_type_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Angelina (generated)" id="1738430694093-12">
+        <addUniqueConstraint columnNames="content_type_id, codename" constraintName="auth_permission_content_type_id_codename_01ab375a_uniq" tableName="auth_permission"/>
+    </changeSet>
+    <changeSet author="Angelina (generated)" id="1738430694093-13">
+        <createIndex indexName="auth_group_permissions_group_id_b120cbf9" tableName="auth_group_permissions">
+            <column name="group_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Angelina (generated)" id="1738430694093-14">
+        <createIndex indexName="auth_group_permissions_permission_id_84c5c92e" tableName="auth_group_permissions">
+            <column name="permission_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Angelina (generated)" id="1738430694093-15">
+        <addUniqueConstraint columnNames="group_id, permission_id" constraintName="auth_group_permissions_group_id_permission_id_0cd325b0_uniq" tableName="auth_group_permissions"/>
+    </changeSet>
+    <changeSet author="Angelina (generated)" id="1738430694093-16">
+        <addUniqueConstraint columnNames="name" constraintName="auth_group_name_key" tableName="auth_group"/>
+    </changeSet>
+    <changeSet author="Angelina (generated)" id="1738430694093-17">
+        <addUniqueConstraint columnNames="email" constraintName="users_user_email_key" tableName="users_user"/>
+    </changeSet>
+    <changeSet author="Angelina (generated)" id="1738430694093-18">
+        <createIndex indexName="users_user_groups_user_id_5f6f5a90" tableName="users_user_groups">
+            <column name="user_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Angelina (generated)" id="1738430694093-19">
+        <createIndex indexName="users_user_groups_group_id_9afc8d0e" tableName="users_user_groups">
+            <column name="group_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Angelina (generated)" id="1738430694093-20">
+        <addUniqueConstraint columnNames="user_id, group_id" constraintName="users_user_groups_user_id_group_id_b88eab82_uniq" tableName="users_user_groups"/>
+    </changeSet>
+    <changeSet author="Angelina (generated)" id="1738430694093-21">
+        <createIndex indexName="users_user_user_permissions_user_id_20aca447" tableName="users_user_user_permissions">
+            <column name="user_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Angelina (generated)" id="1738430694093-22">
+        <createIndex indexName="users_user_user_permissions_permission_id_0b93982e" tableName="users_user_user_permissions">
+            <column name="permission_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Angelina (generated)" id="1738430694093-23">
+        <addUniqueConstraint columnNames="user_id, permission_id" constraintName="users_user_user_permissions_user_id_permission_id_43338c45_uniq" tableName="users_user_user_permissions"/>
+    </changeSet>
+    <changeSet author="Angelina (generated)" id="1738430694093-24">
+        <createIndex indexName="django_admin_log_content_type_id_c4bce8eb" tableName="django_admin_log">
+            <column name="content_type_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Angelina (generated)" id="1738430694093-25">
+        <createIndex indexName="django_admin_log_user_id_c564eba6" tableName="django_admin_log">
+            <column name="user_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Angelina (generated)" id="1738430694093-26">
+        <createIndex indexName="django_session_expire_date_a5c62663" tableName="django_session">
+            <column name="expire_date"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Angelina (generated)" id="1738430694093-27">
+        <addUniqueConstraint columnNames="app_label, model" constraintName="django_content_type_app_label_model_76bd3d3b_uniq" tableName="django_content_type"/>
+    </changeSet>
+    <changeSet author="Angelina (generated)" id="1738430694093-28">
+        <addUniqueConstraint columnNames="user_id" constraintName="wallet_wallet_user_id_key" tableName="wallet_wallet"/>
+    </changeSet>
+    <changeSet author="Angelina (generated)" id="1738430694093-29">
+        <createTable tableName="django_migrations">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="django_migrations_pkey"/>
+            </column>
+            <column name="app" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="applied" type="TIMESTAMP WITH TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Angelina (generated)" id="1738430694093-30">
+        <addForeignKeyConstraint baseColumnNames="permission_id" baseTableName="auth_group_permissions" constraintName="auth_group_permissio_permission_id_84c5c92e_fk_auth_perm" deferrable="true" initiallyDeferred="true" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="auth_permission" validate="true"/>
+    </changeSet>
+    <changeSet author="Angelina (generated)" id="1738430694093-31">
+        <addForeignKeyConstraint baseColumnNames="group_id" baseTableName="auth_group_permissions" constraintName="auth_group_permissions_group_id_b120cbf9_fk_auth_group_id" deferrable="true" initiallyDeferred="true" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="auth_group" validate="true"/>
+    </changeSet>
+    <changeSet author="Angelina (generated)" id="1738430694093-32">
+        <addForeignKeyConstraint baseColumnNames="content_type_id" baseTableName="auth_permission" constraintName="auth_permission_content_type_id_2f476e4b_fk_django_co" deferrable="true" initiallyDeferred="true" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="django_content_type" validate="true"/>
+    </changeSet>
+    <changeSet author="Angelina (generated)" id="1738430694093-33">
+        <addForeignKeyConstraint baseColumnNames="content_type_id" baseTableName="django_admin_log" constraintName="django_admin_log_content_type_id_c4bce8eb_fk_django_co" deferrable="true" initiallyDeferred="true" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="django_content_type" validate="true"/>
+    </changeSet>
+    <changeSet author="Angelina (generated)" id="1738430694093-34">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="django_admin_log" constraintName="django_admin_log_user_id_c564eba6_fk_users_user_id" deferrable="true" initiallyDeferred="true" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="users_user" validate="true"/>
+    </changeSet>
+    <changeSet author="Angelina (generated)" id="1738430694093-35">
+        <addForeignKeyConstraint baseColumnNames="group_id" baseTableName="users_user_groups" constraintName="users_user_groups_group_id_9afc8d0e_fk_auth_group_id" deferrable="true" initiallyDeferred="true" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="auth_group" validate="true"/>
+    </changeSet>
+    <changeSet author="Angelina (generated)" id="1738430694093-36">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="users_user_groups" constraintName="users_user_groups_user_id_5f6f5a90_fk_users_user_id" deferrable="true" initiallyDeferred="true" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="users_user" validate="true"/>
+    </changeSet>
+    <changeSet author="Angelina (generated)" id="1738430694093-37">
+        <addForeignKeyConstraint baseColumnNames="permission_id" baseTableName="users_user_user_permissions" constraintName="users_user_user_perm_permission_id_0b93982e_fk_auth_perm" deferrable="true" initiallyDeferred="true" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="auth_permission" validate="true"/>
+    </changeSet>
+    <changeSet author="Angelina (generated)" id="1738430694093-38">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="users_user_user_permissions" constraintName="users_user_user_permissions_user_id_20aca447_fk_users_user_id" deferrable="true" initiallyDeferred="true" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="users_user" validate="true"/>
+    </changeSet>
+    <changeSet author="Angelina (generated)" id="1738430694093-39">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="wallet_wallet" constraintName="wallet_wallet_user_id_8c75caaa_fk_users_user_id" deferrable="true" initiallyDeferred="true" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="users_user" validate="true"/>
+    </changeSet>
+</databaseChangeLog>
