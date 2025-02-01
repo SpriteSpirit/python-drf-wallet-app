@@ -18,7 +18,7 @@ services:
   web:
     build: .
     container_name: wallet_service
-    command: ["/wait-for-it.sh", "db:5432", "--", "python", "manage.py", "runserver", "0.0.0.0:8000"]
+    command: ["/wait-for-it.sh", "db:5432", "--", "bash", "-c", "python manage.py liquibase_migrate && python manage.py runserver 0.0.0.0:8000"]
     volumes:
       - .:/app
     ports:
