@@ -84,7 +84,7 @@ DATABASES = {
         'NAME': os.environ.get("POSTGRES_DATABASE"),
         'USER': os.environ.get("POSTGRES_USER"),
         'PASSWORD': os.environ.get("POSTGRES_PASSWORD"),
-        'HOST': os.environ.get("POSTGRES_HOST_DOCKER"),
+        'HOST': os.environ.get("POSTGRES_HOST"),
     }
 }
 
@@ -126,3 +126,5 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+AUTH_USER_MODEL = "users.User"
