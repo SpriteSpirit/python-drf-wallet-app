@@ -2,7 +2,7 @@ from decimal import Decimal
 
 from django.db import IntegrityError
 from django.db.models.signals import post_save
-from rest_framework.test import APITestCase, APIClient
+from rest_framework.test import APITestCase #, APIClient
 
 from users.factories import UserFactory
 from users.models import create_wallet, User
