@@ -87,10 +87,10 @@ BACKEND_SERVER_PORT=8000
 Для запуска тестов выполните команду:
 
 ```bash
-    docker-compose exec web pytest
+    docker-compose exec web python manage.py test wallet.tests.WalletServiceTests
 ```
 ---
-### [Коллекция Postman](https://drive.google.com/file/d/1MDvakvf_vothPGOLSy5_uZZjgK1Fv8z7/view?usp=sharing) для проверки основного функционала.
+>[Коллекция Postman](https://drive.google.com/file/d/1MDvakvf_vothPGOLSy5_uZZjgK1Fv8z7/view?usp=sharing) для проверки основного функционала.
 ---
 
 ## Эндпоинты API

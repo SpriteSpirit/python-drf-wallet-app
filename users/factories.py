@@ -17,7 +17,6 @@ class UserFactory(DjangoModelFactory):
 
     first_name = factory.LazyAttribute(lambda x: fake.first_name())
     last_name = factory.LazyAttribute(lambda x: fake.last_name())
-    # Factory Boy автоматически передаст этот email дальше в **kwargs
     email = factory.Sequence(lambda n: f'user{n}@example.com')
     password = factory.PostGenerationMethodCall('set_password', 'testpassword')
 
@@ -30,14 +29,9 @@ class UserFactory(DjangoModelFactory):
 
         manager = cls._get_manager(model_class)
 
-        # Если кто-то передал в фабрику email напрямую, достанем его,
-        # а если нет – сгенерируем email на основе first_name
         first_name = kwargs.pop('first_name', 'Test')
         last_name = kwargs.pop('last_name', 'User')
         email = kwargs.pop('email', f"{first_name}@example.com")
-
-        # ВАЖНО! Проверим, что email точно не попадет второй раз в **kwargs
-        # (если он приходил из factory.Sequence, мы его уже забрали выше).
 
         return manager.create(
             email=email,
