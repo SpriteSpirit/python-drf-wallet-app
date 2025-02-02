@@ -1,8 +1,13 @@
+from django.db import transaction
+from django.core.exceptions import ObjectDoesNotExist
+
 from decimal import Decimal
 
+from django.http import Http404
+
+from wallet.models import Wallet
 from utilities.logger_utils import logger
-from .models import Wallet
-from django.db import transaction
+
 
 @transaction.atomic
 def perform_operation(wallet_id: str, operation_type: str, amount: Decimal) -> None:
@@ -15,7 +20,12 @@ def perform_operation(wallet_id: str, operation_type: str, amount: Decimal) -> N
         amount (Decimal): Сумма операции.
 
     :raises ValueError: Если тип операции неверный или недостаточно средств.
+    :raises Http404: Если кошелек не найден.
     """
+    try:
+        wallet = Wallet.objects.select_for_update().get(wallet_id=wallet_id)
+    except ObjectDoesNotExist:
+        raise Http404(f"Кошелек с ID {wallet_id} не найден.")
 
     wallet = Wallet.objects.select_for_update().get(wallet_id=wallet_id)
     logger.info(f"Начат процесс обновления кошелька {wallet.wallet_id}. Текущий баланс: {wallet.balance}")
