@@ -1,5 +1,6 @@
 from typing import Optional
 
+from django.http import Http404
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 
@@ -9,6 +10,7 @@ from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.decorators import action
 
+from utilities.logger_utils import logger
 from wallet.models import Wallet
 from wallet.services import perform_operation
 from wallet.api.serializers import WalletOperationSerializer, WalletSerializer
@@ -44,6 +46,7 @@ class WalletViewSet(viewsets.ModelViewSet):
 
         wallets = self.get_queryset()
         serializer = self.get_serializer(wallets, many=True)
+
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     @swagger_auto_schema(
@@ -156,14 +159,13 @@ class WalletViewSet(viewsets.ModelViewSet):
             ),
             400: "Некорректные данные операции или недостаточно средств",
             404: "Кошелек не найден",
-            500: "Внутренняя ошибка сервера"
         },
         tags=['wallets']
     )
     @action(detail=True, methods=['post'])
     def operation(self, request: Request, wallet_id: str = None) -> Response:
         """
-        Выполнение финансовой операции с кошельком.
+        Выполнение финансовых операций с кошельком.
         """
 
         try:
@@ -187,8 +189,7 @@ class WalletViewSet(viewsets.ModelViewSet):
                     status=status.HTTP_200_OK
                 )
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-        except Wallet.DoesNotExist:
+        except Http404:  # Ловим Http404, который выбрасывается self.get_object()
             return Response(
                 {'error': f'Кошелек с UUID {wallet_id} не найден.'},
                 status=status.HTTP_404_NOT_FOUND
@@ -196,7 +197,9 @@ class WalletViewSet(viewsets.ModelViewSet):
         except ValueError as e:
             return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
+            logger.error(f"Необработанное исключение: {str(e)}", exc_info=True)
+
             return Response(
-                {'error': f'Внутренняя ошибка сервера: {str(e)}'},
-                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+                {'error': 'Произошла ошибка обработки запроса. Пожалуйста, проверьте данные и повторите попытку.'},
+                status=status.HTTP_400_BAD_REQUEST
             )
