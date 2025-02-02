@@ -26,7 +26,6 @@ class WalletOperationSerializer(serializers.Serializer):
     operation_type = serializers.ChoiceField(choices=['DEPOSIT', 'WITHDRAW'])
     amount = serializers.DecimalField(min_value=Decimal('0.01'), max_digits=10, decimal_places=2)
 
-
     def validate_amount(self, value: float) -> Optional[float]:
         """
         Проверка суммы на положительное значение.

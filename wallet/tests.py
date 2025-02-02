@@ -2,7 +2,7 @@ from decimal import Decimal
 
 from django.db import IntegrityError
 from django.db.models.signals import post_save
-from rest_framework.test import APITestCase #, APIClient
+from rest_framework.test import APITestCase  #, APIClient
 
 from users.factories import UserFactory
 from users.models import create_wallet, User
@@ -49,53 +49,56 @@ class WalletServiceTests(APITestCase):
         Тестирует, что при создании второго кошелька для того же пользователя возникает ошибка IntegrityError.
         """
 
-        user = UserFactory()  # Create user
+        user = UserFactory()
         WalletFactory(user=user, balance=100.00)
+
         with self.assertRaises(IntegrityError):
             WalletFactory(user=user, balance=50.00)
-
 
     def test_deposit(self):
         """
         Тестирует операцию снятия средств с кошелька.
         """
 
-        user = UserFactory()  # Create user
+        user = UserFactory()
         self.wallet = WalletFactory(user=user, balance=100.00)
+
         perform_operation(self.wallet.wallet_id, "DEPOSIT", Decimal(50.00))
+
         self.wallet.refresh_from_db()
         self.assertEqual(self.wallet.balance, 150.00)
-
 
     def test_withdraw(self):
         """
         Тестирует случай, когда попытка снятия средств превышает доступный баланс.
         """
 
-        user = UserFactory()  # Create user
+        user = UserFactory()
         self.wallet = WalletFactory(user=user, balance=100.00)
+
         perform_operation(self.wallet.wallet_id, "WITHDRAW", Decimal(50.00))
+
         self.wallet.refresh_from_db()
         self.assertEqual(self.wallet.balance, 50.00)
-
 
     def test_insufficient_funds(self):
         """
         Тестирует случай, когда указывается недопустимый тип операции.
         """
 
-        user = UserFactory()  # Create user
+        user = UserFactory()
         self.wallet = WalletFactory(user=user, balance=100.00)
+
         with self.assertRaises(ValueError):
             perform_operation(self.wallet.wallet_id, "WITHDRAW", Decimal(150.00))
 
-
     def test_invalid_operation_type(self):
         """
-
+        Тестирует случай, когда указывается недопустимый тип операции.
         """
 
-        user = UserFactory()  # Create user
+        user = UserFactory()
         self.wallet = WalletFactory(user=user, balance=100.00)
+
         with self.assertRaises(ValueError):
             perform_operation(self.wallet.wallet_id, "INVALID", Decimal(50.00))
