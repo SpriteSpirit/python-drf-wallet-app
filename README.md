@@ -83,14 +83,31 @@ BACKEND_SERVER_PORT=8000
 ---
 
 ## Тестирование
+### Общее тестирование. 
+Для запуска всех тестов используйте команду:
+```bash
+    docker-compose exec web coverage run --source='.' manage.py test
+```
+Для генерации отчета покрытия тестами используйте:
+```bash
+    docker-compose exec web coverage report
+```
 
-Для запуска тестов выполните команду:
+### Выборочное тестирование:
+Для запуска тестов кошелька выполните команду:
 
 ```bash
     docker-compose exec web python manage.py test wallet.tests.WalletServiceTests
 ```
+
+Для запуска тестов пользователя выполните команду:
+
+```bash
+    docker-compose exec web python manage.py test users.tests.UserViewSetTestCase
+```
 ---
->[Коллекция Postman](https://drive.google.com/file/d/1MDvakvf_vothPGOLSy5_uZZjgK1Fv8z7/view?usp=sharing) для проверки основного функционала.
+>[Коллекция Postman](https://drive.google.com/file/d/1MDvakvf_vothPGOLSy5_uZZjgK1Fv8z7/view?usp=sharing) 
+> для быстрой проверки основного функционала.
 ---
 
 ## Эндпоинты API
