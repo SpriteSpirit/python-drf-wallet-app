@@ -172,11 +172,9 @@ BACKEND_SERVER_PORT=8000
    ```JSON
    {
        "id": 2,
-       "email": "user2@example.com",
-       "first_name": "Bella",
-       "last_name": "Doe",
-       "is_staff": false,
-       "is_active": true
+       "email": "user@example.com",
+       "first_name": "Super",
+       "last_name": "User"
    }
    ```
 
@@ -229,12 +227,12 @@ BACKEND_SERVER_PORT=8000
    ```
 - **Пример запроса (Снятие):**
    ```Bash
-   curl -X POST http://localhost:8000/api/v1/wallets/278e0e9d-098e-43d4-bd40-e016c7c7363d/operation/ \
-    -H "Content-Type: application/json" \
-    -d '{
+   curl -X POST http://localhost:8000/api/v1/wallets/278e0e9d-098e-43d4-bd40-e016c7c7363d/operation/
+  -H "Content-Type: application/json"
+  -d '{
            "operation_type": "WITHDRAW",
            "amount": 100
-        }'
+  }'
    ```
 - **Пример ответа:**
    ```JSON
