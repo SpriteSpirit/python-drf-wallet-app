@@ -1,6 +1,7 @@
 import factory
-from factory.django import DjangoModelFactory
+
 from users.factories import UserFactory
+from factory.django import DjangoModelFactory
 
 
 class WalletFactory(DjangoModelFactory):

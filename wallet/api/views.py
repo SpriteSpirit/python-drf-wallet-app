@@ -1,6 +1,5 @@
 from typing import Optional
 
-from django.http import Http404
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 
@@ -10,7 +9,9 @@ from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.decorators import action
 
+from django.http import Http404
 from utilities.logger_utils import logger
+
 from wallet.models import Wallet
 from wallet.services import perform_operation
 from wallet.api.serializers import WalletOperationSerializer, WalletSerializer

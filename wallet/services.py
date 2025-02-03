@@ -22,13 +22,13 @@ def perform_operation(wallet_id: str, operation_type: str, amount: Decimal) -> N
     :raises ValueError: Если тип операции неверный или недостаточно средств.
     :raises Http404: Если кошелек не найден.
     """
+
     try:
         wallet = Wallet.objects.select_for_update().get(wallet_id=wallet_id)
     except ObjectDoesNotExist:
         raise Http404(f"Кошелек с ID {wallet_id} не найден.")
 
-    wallet = Wallet.objects.select_for_update().get(wallet_id=wallet_id)
-    logger.info(f"Начат процесс обновления кошелька {wallet.wallet_id}. Текущий баланс: {wallet.balance}")
+    logger.info(f"Начат процесс операций с кошельком {wallet.wallet_id}. Текущий баланс: {wallet.balance}")
 
     if operation_type == "DEPOSIT":
         wallet.deposit(amount)

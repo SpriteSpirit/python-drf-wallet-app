@@ -41,6 +41,7 @@ class Wallet(models.Model):
         verbose_name = 'Кошелек'
         verbose_name_plural = 'Кошельки'
 
+
     def __str__(self) -> str:
         """
         Возвращает строковое представление модели.
