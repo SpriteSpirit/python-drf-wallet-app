@@ -166,38 +166,33 @@ class WalletViewSet(viewsets.ModelViewSet):
         Выполнение финансовых операций с кошельком.
         """
 
-        try:
-            wallet = self.get_object()
-            serializer = WalletOperationSerializer(data=request.data)
+        serializer = WalletOperationSerializer(data=request.data)
 
-            if serializer.is_valid():
-                perform_operation(
-                    wallet_id,
-                    serializer.validated_data['operation_type'],
-                    serializer.validated_data['amount']
-                )
-
-                wallet.refresh_from_db()
-
-                return Response(
-                    {
-                        'message': 'Операция выполнена успешно.',
-                        'new_balance': float(wallet.balance)
-                    },
-                    status=status.HTTP_200_OK
-                )
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        except Http404:  # Ловим Http404, который выбрасывается self.get_object()
-            return Response(
-                {'error': f'Кошелек с UUID {wallet_id} не найден.'},
-                status=status.HTTP_404_NOT_FOUND
+        if serializer.is_valid():
+            wallet = perform_operation(
+                wallet_id,
+                serializer.validated_data['operation_type'],
+                serializer.validated_data['amount']
             )
-        except ValueError as e:
-            return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
-        except Exception as e:
-            logger.error(f"Необработанное исключение: {str(e)}", exc_info=True)
-
             return Response(
-                {'error': 'Произошла ошибка обработки запроса. Пожалуйста, проверьте данные и повторите попытку.'},
-                status=status.HTTP_400_BAD_REQUEST
+                {
+                    'message': 'Операция выполнена успешно.',
+                    'new_balance': float(wallet.balance)
+                },
+                status=status.HTTP_200_OK
             )
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        # except Http404:  # Ловим Http404, который выбрасывается self.get_object()
+        #     return Response(
+        #         {'error': f'Кошелек с UUID {wallet_id} не найден.'},
+        #         status=status.HTTP_404_NOT_FOUND
+        #     )
+        # except ValueError as e:
+        #     return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+        # except Exception as e:
+        #     logger.error(f"Необработанное исключение: {str(e)}", exc_info=True)
+        #
+        #     return Response(
+        #         {'error': 'Произошла ошибка обработки запроса. Пожалуйста, проверьте данные и повторите попытку.'},
+        #         status=status.HTTP_400_BAD_REQUEST
+        # )

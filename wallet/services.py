@@ -10,7 +10,7 @@ from utilities.logger_utils import logger
 
 
 @transaction.atomic
-def perform_operation(wallet_id: str, operation_type: str, amount: Decimal) -> None:
+def perform_operation(wallet_id: str, operation_type: str, amount: Decimal) -> Wallet:
     """
     Выполняет операцию над кошельком (пополнение или списание).
 
@@ -33,8 +33,10 @@ def perform_operation(wallet_id: str, operation_type: str, amount: Decimal) -> N
     if operation_type == "DEPOSIT":
         wallet.deposit(amount)
         logger.info(f"Кошелек {wallet.wallet_id} пополнен на {amount}. Новый баланс: {wallet.balance}")
+        return wallet
     elif operation_type == "WITHDRAW":
         wallet.withdraw(amount)
         logger.info(f"С кошелька {wallet.wallet_id} списано {amount}. Новый баланс: {wallet.balance}")
+        return wallet
     else:
         raise ValueError("Неверный тип операции.")
